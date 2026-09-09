@@ -1,7 +1,7 @@
 /* The demo card, and nothing else.
  *
  * Two behaviours, both of them the app's: pointing at a French word finds its
- * counterpart in the translation, and the pill above the card swaps which
+ * counterpart in the translation, and the pill in the card head swaps which
  * translation is on show. Neither one rewrites any text — both halves of the
  * card are already in the markup, and CSS decides what is visible.
  *

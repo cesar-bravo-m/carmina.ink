@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- The page is in English; the French is content, not chrome, so every French
-     phrase carries its own lang="fr". The demo card holds both translations at
-     once and CSS hides one — see body[data-lang] in styles.css. -->
+     phrase carries its own lang="fr". The card holds both translations at once
+     and CSS hides one — see body[data-lang] in styles.css. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -67,36 +67,28 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Libre+Baskerville:ital@0;1&display=swap" rel="stylesheet">
 </head>
 <body data-lang="en">
 
-  <header class="header">
-    <h1 class="title">carmina</h1>
-    <p class="lede"><i lang="fr">Les parfums, les couleurs et les sons se répondent.</i></p>
-    <p class="lede-attr">Baudelaire, <cite lang="fr">Correspondances</cite></p>
-    <div class="header-ornament"></div>
-  </header>
-
   <main class="page">
 
-    <section class="prose">
-      <p>carmina puts a French poem beside its translation — English on one side,
-        Spanish on the other — aligned line by line. Hover a word and its counterpart
-        lights up in the other column. It is built for people reading the French with a
-        dictionary open, which is to say students. It comes from the same hands as
-        <a href="https://floresdelmal.org">floresdelmal.org</a>.</p>
-    </section>
+    <header class="header">
+      <h1 class="title">carmina</h1>
+      <p class="tagline">French poetry beside its translation, line by line.</p>
+    </header>
 
-    <!-- The demo is the argument. Everything in it is real: the French, both
-         translations and the word alignment are the same data the app carries,
-         taken from floresdelmal.org's Correspondances. -->
-    <section class="demo-wrap" aria-labelledby="demo-heading">
-      <h2 class="label" id="demo-heading">Side by side</h2>
+    <!-- The demo is the whole argument, so it carries no heading of its own.
+         Everything in it is real: the French, both translations and the word
+         alignment are the app's own data, from floresdelmal.org. -->
+    <section class="card" aria-label="Correspondances, side by side">
 
-      <div class="langs" role="group" aria-label="Translation language">
-        <button type="button" class="lang" data-lang="en" aria-pressed="true">English</button>
-        <button type="button" class="lang" data-lang="es" aria-pressed="false">Español</button>
+      <div class="card-head">
+        <p class="poem"><cite lang="fr">Correspondances</cite><span class="poet">Baudelaire</span></p>
+        <div class="langs" role="group" aria-label="Translation language">
+          <button type="button" class="lang" data-lang="en" aria-pressed="true">English</button>
+          <button type="button" class="lang" data-lang="es" aria-pressed="false">Español</button>
+        </div>
       </div>
 
       <div class="comparison" id="demo">
@@ -128,46 +120,33 @@
         </div>
       </div>
 
-      <p class="source">
-        <span class="source-label">Text</span>
-        Charles Baudelaire, <cite lang="fr">Correspondances</cite>, 1857.
-        <span class="lang-en">English by Cyril Scott, 1909.</span>
-        <span class="lang-es">Spanish by Eduardo Marquina, 1905.</span>
-      </p>
-      <p class="hint">Hover a word — or tap it — to find it in the other column.</p>
+      <div class="card-foot">
+        <p class="hint">Hover or tap a word</p>
+        <p class="credit">
+          <span class="lang-en">tr. Cyril Scott, 1909</span>
+          <span class="lang-es">tr. Eduardo Marquina, 1905</span>
+        </p>
+      </div>
     </section>
 
-    <section class="prose" aria-labelledby="poets-heading">
-      <h2 class="label" id="poets-heading">The first three</h2>
-      <ul class="points">
-        <li><b>Arthur Rimbaud</b> <span class="years">— 1854–1891</span></li>
-        <li><b>Charles Baudelaire</b> <span class="years">— 1821–1867</span></li>
-        <li><b>Paul Verlaine</b> <span class="years">— 1844–1896</span></li>
-      </ul>
-      <p class="note">Others will follow.</p>
+    <section class="poets" aria-label="Poets">
+      <p class="names">Rimbaud <i>·</i> Baudelaire <i>·</i> Verlaine</p>
+      <p class="note">and more to come</p>
     </section>
 
-    <section class="prose" aria-labelledby="launch-heading">
-      <h2 class="label" id="launch-heading">Coming soon</h2>
-      <ul class="points">
-        <li><b>Android</b> <span class="years">— 10 October 2026</span></li>
-        <li><b>iOS</b> <span class="years">— to be announced</span></li>
-      </ul>
-      <!-- Inert on purpose: the Play listing is not up yet, and a live link to a
-           404 would be worse than an honest dead one. On launch day this becomes
-           an anchor carrying the store URL, and the wording becomes Google's own
-           "Get it on Google Play". Nothing else on the page has to move. -->
-      <p class="cta">
-        <button type="button" class="btn" disabled>Google Play — 10 October</button>
-      </p>
-      <p class="note">The listing opens on launch day.</p>
+    <!-- Inert on purpose: the Play listing is not up yet, and a live link to a
+         404 would be worse than an honest dead one. On launch day this becomes
+         an anchor carrying the store URL. Nothing else on the page has to move. -->
+    <section class="launch" aria-label="Availability">
+      <button type="button" class="btn" disabled>Google&nbsp;Play — 10 October</button>
+      <p class="note">iOS to follow</p>
     </section>
 
   </main>
 
   <footer class="footer">
-    <div class="footer-ornament"></div>
-    <p><cite>carmina</cite> — from the Latin for songs.</p>
+    <div class="ornament"></div>
+    <p>Latin for songs <i>·</i> <a href="https://floresdelmal.org">floresdelmal.org</a></p>
   </footer>
 
   <script src="demo.js"></script>
