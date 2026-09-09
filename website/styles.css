@@ -1,0 +1,412 @@
+/* --- carmina — fin-de-siècle × modern ---
+   The palette, the two serif faces and the ornament are carried over from
+   floresdelmal.org so the two sites read as one hand. Only what a single page
+   needs is here; the parent's 3,000 lines cover a reader this page doesn't have. */
+
+:root {
+  --ink: #1a1512;
+  --paper: #f5f0e8;
+  --paper-warm: #ebe4d9;
+  --accent: #6b2d2d;
+  --accent-light: #8b4040;
+  --gold: #8b7355;
+  --gold-muted: #a09078;
+  --border: #c4b8a8;
+  --shadow: rgba(26, 21, 18, 0.12);
+
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-body: "Libre Baskerville", "Georgia", serif;
+
+  --prose-max: 42rem;
+  --demo-max: 64rem;
+  --gutter: clamp(0.75rem, 3vw, 2rem);
+  --cell-pad-x: clamp(0.6rem, 1.8vw, 1.25rem);
+  --font-base: 18px;
+
+  /* The word highlight, and the wash it fades from. */
+  --pair-bg: rgba(107, 45, 45, 0.30);
+  --tint: rgba(139, 115, 85, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.4);
+}
+
+/* The parent site keeps dark mode on a button and a localStorage key. A page
+   with nothing to remember shouldn't ask; it follows the system instead. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e2da;
+    --paper: #1e1a17;
+    --paper-warm: #252019;
+    --accent: #c97a7a;
+    --accent-light: #b86a6a;
+    --gold: #a08060;
+    --gold-muted: #8a7560;
+    --border: #3d3630;
+    --shadow: rgba(0, 0, 0, 0.35);
+
+    --pair-bg: rgba(201, 122, 122, 0.30);
+    --tint: rgba(255, 255, 255, 0.045);
+    --card-bg: rgba(37, 32, 28, 0.6);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: var(--font-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* A 6% crimson bloom above the top edge, over a cream-to-tan wash. The page is
+   never a flat fill — that single gradient is most of the paper feeling. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  overflow-wrap: break-word;
+  background: var(--paper);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(139, 45, 45, 0.06), transparent),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+}
+
+/* Both translations sit in the markup at once; CSS picks the one on show, so
+   the toggle never rewrites a word of text. */
+body[data-lang="en"] .lang-es,
+body[data-lang="es"] .lang-en { display: none; }
+
+/* --- header --- */
+
+.header {
+  text-align: center;
+  max-width: var(--prose-max);
+  margin: 0 auto;
+  padding: 3.5rem max(var(--gutter), 1.25rem) 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+
+.lede {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--gold);
+  margin: 0 0 0.35rem;
+}
+
+.lede-attr {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-muted);
+  margin: 0;
+}
+
+.lede-attr cite { font-style: italic; text-transform: none; letter-spacing: 0.04em; }
+
+/* The signature divider: a gold hairline that fades out at both ends. */
+.header-ornament {
+  width: 4rem;
+  height: 2px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+}
+
+/* --- prose --- */
+
+.page { padding-bottom: 1rem; }
+
+.prose {
+  max-width: var(--prose-max);
+  margin: 0 auto;
+  padding: 2.5rem max(var(--gutter), 1.25rem) 0;
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+.prose p { margin: 0 0 1.2rem; }
+.prose cite { font-style: italic; }
+
+/* The browser's blue reads as a foreign object on this paper. */
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(107, 45, 45, 0.35);
+  text-underline-offset: 0.18em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.prose a:hover {
+  color: var(--accent-light);
+  text-decoration-color: currentColor;
+}
+
+/* Small caps are faked everywhere on this site — uppercase, tracked, small. */
+.label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 1.1rem;
+}
+
+/* A short gold rule instead of a bullet, to match the ornaments. */
+.points {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0;
+}
+
+.points li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.9em;
+  width: 0.7rem;
+  height: 1px;
+  background: var(--gold-muted);
+}
+
+.points b {
+  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 1.15em;
+  color: var(--accent);
+}
+
+/* The name carries the line; the dates only place it. */
+.points .years {
+  font-size: 0.85em;
+  color: var(--gold);
+}
+
+.note {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--gold);
+  margin: 0;
+}
+
+/* --- the demo --- */
+
+.demo-wrap {
+  max-width: var(--demo-max);
+  margin: 0 auto;
+  padding: 3rem max(var(--gutter), 1.25rem) 0;
+}
+
+.demo-wrap .label { text-align: center; margin-bottom: 1rem; }
+
+.langs {
+  display: flex;
+  width: max-content;
+  margin: 0 auto 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.lang {
+  padding: 0.28rem 0.9rem;
+  background: transparent;
+  border: 0;
+  color: var(--gold-muted);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lang + .lang { border-left: 1px solid var(--border); }
+.lang:hover { color: var(--accent); }
+.lang[aria-pressed="true"] { background: rgba(107, 45, 45, 0.1); color: var(--accent); }
+
+.comparison {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+  padding: 1.75rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+/* One continuous hairline down the middle, rather than a border per cell. */
+.comparison::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -0.5px;
+  background: var(--border);
+  pointer-events: none;
+}
+
+.cell { padding: 0.25rem var(--cell-pad-x); min-width: 0; }
+.cell-tr { grid-column: 2; grid-row: 1; }
+
+.stanza { margin: 0; font-size: 0.82rem; line-height: 2; }
+
+/* An alexandrine is twelve syllables and will eventually meet an edge it can't
+   fit. When it does, the turnover hangs indented — the way verse has always
+   been set — so a wrapped line still reads as one line and the two columns
+   stay countable against each other. */
+.line {
+  display: block;
+  padding-left: 1.25em;
+  text-indent: -1.25em;
+}
+
+.word-group {
+  border-radius: 2px;
+  cursor: default;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.word-group:focus { outline: none; }
+
+.word-group-highlight {
+  background-color: var(--pair-bg);
+  color: var(--accent);
+  box-shadow: 0 2px 0 var(--accent-light);
+}
+
+.source {
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--gold);
+  text-align: center;
+}
+
+.source cite { font-style: italic; }
+
+.source-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-muted);
+  margin-right: 0.4rem;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--gold-muted);
+  text-align: center;
+}
+
+/* --- the buttons --- */
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0 0 1.1rem;
+}
+
+/* Both are dead until there is somewhere to send you. They keep the live
+   button's shape so nothing has to move on launch day. */
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  border: 1px solid var(--accent-light);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: default;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Ready for launch day, when the button becomes a live anchor. */
+.btn:not(:disabled) { cursor: pointer; }
+.btn:not(:disabled):hover { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+
+/* --- footer --- */
+
+.footer {
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
+.footer p { margin: 0; }
+.footer cite { font-style: italic; }
+
+.footer-ornament {
+  width: 3rem;
+  height: 1px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
+}
+
+/* --- narrow screens ---
+   The column split sits where a verse column stops shredding the line. Below
+   it the two cells stack, and the translation takes a rule and a tint instead
+   of a neighbour to be told apart from the French. */
+
+@media (max-width: 820px) {
+  .comparison { display: block; padding: 1.25rem 0.25rem; }
+  .comparison::after { display: none; }
+
+  .cell { padding: 0.3rem var(--cell-pad-x); }
+
+  .cell-tr {
+    margin: 0.75rem var(--cell-pad-x) 0;
+    padding: 0.5rem 0.75rem 0.65rem;
+    border-left: 2px solid var(--border);
+    background: var(--tint);
+  }
+}
+
+@media (max-width: 480px) {
+  :root { --font-base: 16px; }
+  .header { padding-top: 2.5rem; }
+  .cta { flex-direction: column; align-items: stretch; }
+  .cta .btn { text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}

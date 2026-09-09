@@ -1,0 +1,8 @@
+# Azure's build robot runs `npm install` whenever it finds a package.json,
+# even for a site with no dependencies. Whatever it leaves behind stays here.
+node_modules/
+
+*.tmp
+
+.DS_Store
+Thumbs.db

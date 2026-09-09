@@ -1,0 +1,10 @@
+{
+  "name": "carmina-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Coming-soon page for carmina — https://carmina.ink",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo \"nothing to build - the site is served as authored\""
+  }
+}
